@@ -73,6 +73,11 @@ public class Main extends org.bukkit.plugin.java.JavaPlugin implements org.bukki
 		}
 		else {}
 	}
+	
+	
+	public ItemStack createItem(String name, Material mat, ArrayList<String> arrayLore) {
+	
+	}
 
 
 
