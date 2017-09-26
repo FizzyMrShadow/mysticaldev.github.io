@@ -76,7 +76,11 @@ public class Main extends org.bukkit.plugin.java.JavaPlugin implements org.bukki
 	
 	
 	public ItemStack createItem(String name, Material mat, ArrayList<String> arrayLore) {
-	
+		ItemStack item = new ItemStack(Material.mat);
+		ItemMeta meta = item.getItemMeta();
+		
+		item1Meta.setDisplayName(name);
+		item1Meta.setLore(lore);
 	}
 
 
@@ -86,37 +90,15 @@ public class Main extends org.bukkit.plugin.java.JavaPlugin implements org.bukki
 	{
 		Inventory inv = Bukkit.getServer().createInventory(null, 45, "§f*§e*§f*§e*§f* §e§lCipheria Gkits §f*§e*§f*§e*§f*");
 
-		ItemStack item1 = new ItemStack(Material.NETHER_STAR);
-
-		ItemMeta item1Meta = item1.getItemMeta();
-
 		ArrayList<String> item1Lore = new ArrayList<String>();
-
 		item1Lore.add("§9Please stand back.");
-
-		item1Meta.setDisplayName("§f§lSavage");
-		item1Meta.setLore(item1Lore);
-
-		item1.setItemMeta(item1Meta);
-
-		inv.setItem(0, item1);
-
-		player.openInventory(inv);
-
-		ItemStack item2 = new ItemStack(Material.NETHER_STAR);
-
-		ItemMeta item2Meta = item2.getItemMeta();
-
+		
+		inv.setItem(0, createItem("Awesome Item", Material.DIAMOND, item1Lore);
+		
 		ArrayList<String> item2Lore = new ArrayList<String>();
-
-		item2Lore.add("§9Watch out, we wouldn't want you to get hurt.");
-
-		item2Meta.setDisplayName("§f§lFallen");
-		item2Meta.setLore(item2Lore);
-
-		item2.setItemMeta(item2Meta);
-
-		inv.setItem(1, item2);
+		item1Lore.add("§9Watch out, we wouldn't want you to get hurt.");
+		
+		inv.setItem(1, createItem("Awesome Second Item", Material.NETHER_STAR, item2Lore);
 
 		player.openInventory(inv);
 	}
