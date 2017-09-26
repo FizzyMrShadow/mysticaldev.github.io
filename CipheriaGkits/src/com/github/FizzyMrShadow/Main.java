@@ -7,6 +7,7 @@ import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -17,6 +18,9 @@ import org.bukkit.plugin.PluginManager;
 
 public class Main extends org.bukkit.plugin.java.JavaPlugin implements org.bukkit.event.Listener
 {
+	
+	public FileConfiguration config = getConfig();
+	
 	public String colorConvert(String string)
 	{
 		return ChatColor.translateAlternateColorCodes('&', string);
@@ -29,11 +33,14 @@ public class Main extends org.bukkit.plugin.java.JavaPlugin implements org.bukki
 		PluginManager pm = Bukkit.getServer().getPluginManager();
 		pm.registerEvents(this, this);
 		ConsoleCommandSender console = Bukkit.getServer().getConsoleSender();
-
+		new Configuration(this).setupConfiguration();
+		Configuration.addConfig(getName(), kits, console);
+		
 		console.sendMessage(ChatColor.GOLD + "-=-=-=-=-=-");
 		console.sendMessage(ChatColor.YELLOW + "CipheriaGkits");
 		console.sendMessage(ChatColor.GOLD + "Made By Stylinq");
 		console.sendMessage(ChatColor.GOLD + "-=-=-=-=-=-");
+		
 	}
 
 	public void onDisable()
@@ -62,11 +69,11 @@ public class Main extends org.bukkit.plugin.java.JavaPlugin implements org.bukki
 
 		if (event.getInventory().getName() == "§f*§e*§f*§e*§f* §e§lCipheria Gkits §f*§e*§f*§e*§f*") {
 			if (item.hasItemMeta()) {
-				if (item.getItemMeta().getDisplayName().contains("§e§lSavage")) {
+				if (item.getItemMeta().getDisplayName().contains("§f§lSavage")) {
 					Bukkit.getServer().dispatchCommand(event.getWhoClicked(), "kit gkit2" + event.getWhoClicked());
 					event.setCancelled(true);
 				}
-				if (!item.getItemMeta().getDisplayName().contains("§e§lFallen")) return;
+				if (!item.getItemMeta().getDisplayName().contains("§f§lFallen")) return;
 				Bukkit.getServer().dispatchCommand(event.getWhoClicked(), "kit gkit1" + event.getWhoClicked());
 				event.setCancelled(true);
 			}
@@ -76,15 +83,17 @@ public class Main extends org.bukkit.plugin.java.JavaPlugin implements org.bukki
 	
 	
 	public ItemStack createItem(String name, Material mat, ArrayList<String> arrayLore) {
-		ItemStack item = new ItemStack(Material.mat);
+		ItemStack item = new ItemStack(mat);
 		ItemMeta meta = item.getItemMeta();
 		
-		item1Meta.setDisplayName(name);
-		item1Meta.setLore(lore);
+		meta.setDisplayName(name);
+		meta.setLore(arrayLore);
+		
+		return item;
 	}
 
-
-
+	
+	
 
 	public void createMenu(Player player)
 	{
@@ -93,12 +102,12 @@ public class Main extends org.bukkit.plugin.java.JavaPlugin implements org.bukki
 		ArrayList<String> item1Lore = new ArrayList<String>();
 		item1Lore.add("§9Please stand back.");
 		
-		inv.setItem(0, createItem("Awesome Item", Material.DIAMOND, item1Lore);
+		inv.setItem(0, createItem("§f§lSavage", Material.NETHER_STAR, item1Lore));
 		
 		ArrayList<String> item2Lore = new ArrayList<String>();
 		item1Lore.add("§9Watch out, we wouldn't want you to get hurt.");
 		
-		inv.setItem(1, createItem("Awesome Second Item", Material.NETHER_STAR, item2Lore);
+		inv.setItem(1, createItem("§f§lFallen", Material.NETHER_STAR, item2Lore));
 
 		player.openInventory(inv);
 	}
